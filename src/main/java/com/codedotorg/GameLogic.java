@@ -1,5 +1,7 @@
 package com.codedotorg;
 
+import java.util.Random;
+
 public class GameLogic {
 
     /** Whether or not the game is over */
@@ -20,8 +22,17 @@ public class GameLogic {
      * @return a String representing the computer's choice
      */
     public String getComputerChoice() {
-        
-        return "";
+        String random = "";
+        int choice = new Random().nextInt(3);
+        switch (choice) {
+            case 0:
+                random = "rock";
+            case 1:
+                random = "paper";
+            case 2:
+                random = "scissors";
+        }
+        return random;
     }
 
     /**
@@ -31,8 +42,33 @@ public class GameLogic {
      * @return A string containing the computer choice, user choice, and the result of the game.
      */
     public String determineWinner(String predictedClass, String computerChoice) {
-        
-        return "";
+        String winner = "";
+        if (predictedClass.equals("rock")) {
+            if (computerChoice.equals("rock")) {
+                winner = getTieResult();
+            } else if (computerChoice.equals("paper")) {
+                winner = getComputerWinnerResult();
+            } else if (computerChoice.equals("scissors")) {
+                winner = getUserWinnerResult();
+            }
+        } else if (predictedClass.equals("paper")) {
+            if (computerChoice.equals("rock")) {
+                winner = getUserWinnerResult();
+            } else if (computerChoice.equals("paper")) {
+                winner = getTieResult();
+            } else if (computerChoice.equals("scissors")) {
+                winner = getComputerWinnerResult();
+            }
+        } else if (predictedClass.equals("scissors")) {
+            if (computerChoice.equals("rock")) {
+                winner = getComputerWinnerResult();
+            } else if (computerChoice.equals("paper")) {
+                winner = getUserWinnerResult();
+            } else if (computerChoice.equals("scissors")) {
+                winner = getTieResult();
+            }
+        }
+        return winner + ". Computer choice: " + computerChoice + " User choice: " + predictedClass;
     }
 
     /**
@@ -42,8 +78,8 @@ public class GameLogic {
      * @return A string indicating a tie result.
      */
     public String getTieResult() {
-        
-        return "";
+        gameOver = true;
+        return "Tie!";
     }
 
     /**
@@ -53,8 +89,8 @@ public class GameLogic {
      * @return a string indicating that the user has won
      */
     public String getUserWinnerResult() {
-        
-        return "";
+        gameOver = true;
+        return "You win!";
     }
 
     /**
@@ -64,8 +100,8 @@ public class GameLogic {
      * @return A string indicating that the player has lost.
      */
     public String getComputerWinnerResult() {
-        
-        return "";
+        gameOver = true;
+        return "youre a loser lmao get rekt";
     }
 
     /**
